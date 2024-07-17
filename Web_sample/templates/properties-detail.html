@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <title>Chi tiết</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{url_for('static', filename='/img/favicon.ico')}}" type="image/x-icon">
+
+
+    <!-- Font awesome -->
+    <link href="{{url_for('static', filename='css/font-awesome.css')}}" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="{{url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+    <!-- slick slider -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/slick.css')}}">
+    <!-- price picker slider -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='css/nouislider.css')}}">
+    <!-- Fancybox slider -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/jquery.fancybox.css')}}" type="text/css" media="screen" />
+    <!-- Theme color -->
+    <link id="switcher" href="{{url_for('static', filename='css/theme-color/default-theme.css')}}" rel="stylesheet">
+
+    <!-- Main style sheet -->
+    <link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+
+   
+    <!-- Google Font -->
+    <link href='https://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  
+
+  </head>
+  <body class="aa-price-range">  
+
+  {% include 'header.html' %}
+  {% include 'menu.html' %}
+
+  <!-- Start Proerty header  -->
+
+  <section id="aa-property-header">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="aa-property-header-inner">
+            <h2>CHI TIẾT BẤT ĐỘNG SẢN</h2>
+            <ol class="breadcrumb">
+            <li><a href="/">Trang chủ</a></li>
+            <li class="active">Chi tiết</li>
+          </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
+  <!-- End Proerty header  -->
+
+  <!-- Start Properties  -->
+  <section id="aa-properties">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="aa-properties-content">            
+            <!-- Start properties content body -->
+            <div class="aa-properties-details">
+              <div id="property_id" style="display:none;">{{item["Post_id"]}}</div>
+             <div class="aa-properties-details-img">
+               {% if item["property_images"]|length == 0 %}
+                   <img src="/static/img/slider/1.jpg" alt="img">
+                   <img src="/static/img/slider/2.jpg" alt="img">
+                   <img src="/static/img/slider/3.jpg" alt="img">
+               {% else %}
+                  {% for link in item["property_images"] %}
+                      <img src="{{link}}" onerror="this.src='/static/img/slider/1.jpg'" alt="img">
+                  {% endfor %}
+               {% endif %}
+             </div>
+             <div class="aa-properties-info">
+               <h2>{{item["Title"]}}</h2>
+               <div style="white-space: pre-line;">{{item["Description"]}}</div>
+               <hr>
+               <span class="aa-price">Giá: {{formater.price_format(item["Price"])}}</span>
+               <span class="aa-area">Diện tích: {{formater.area_format(item["Acreage"])}}</span>
+               <h4><i class="fa fa-map-marker"></i> &nbsp Địa chỉ: {{item["Location"]}}</h4>
+               <h4>&nbsp {{item["Ward"]}}, {{item["District"]}}, {{item["City"]}}</h4>
+               <h5>Ngày đăng: {{item["Created_date"]}}</h5>
+               <hr>
+             </div>
+            <table class="table">
+              <tbody>
+
+                <tr>
+                  <td>Loại hình BĐS</td>
+                  <td>{{item["RE_Type"] if item["RE_Type"]!=None else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Số tầng</td>
+                  <td>{{item["Num_floors"] if item["Num_floors"]!=None else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Số phòng ngủ</td>
+                  <td>{{item["Num_rooms"] if item["Num_rooms"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Số phòng tắm</td>
+                  <td>{{item["Num_toilets"] if item["Num_toilets"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Pháp lý</td>
+                  <td>{{item["Legal"] if item["Legal"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Chiều dài</td>
+                  <td>{{item["Horizontal_length"] if item["Horizontal_length"]!=None and item["Horizontal_length"]!="nan" else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Chiều rộng</td>
+                  <td>{{item["Vertical_length"] if item["Vertical_length"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Chiều rộng đường</td>
+                  <td>{{item["Street_size"] if item["Street_size"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Hướng</td>
+                  <td>{{item["Direction"] if item["Direction"] else ""}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Contact details -->
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td>Người đăng bài</td>
+                  <td>{{item["Contact_name"] if item["Contact_name"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Số điện thoại</td>
+                  <td>{{item["Contact_phone"] if item["Contact_phone"] else ""}}</td>
+                </tr>
+                <tr>
+                  <td>Email</td>
+                  <td>{{item["Contact_email"] if item["Contact_email"] else ""}}</td>
+                </tr>
+              </tbody>
+            </table>
+             <!-- Nearby properties -->
+             <div class="aa-nearby-properties">
+               <div class="info">
+                 <div>{{item["Ward"]}}</div>
+                 <div>{{item["District"]}}</div>
+                 <div>{{item["Province"]}}</div>
+                 <div>{{item["RE_type"]}}</div>
+               </div>
+               <!-- <div class="aa-title">
+                 <h2>Bất động sản gần đó</h2>
+                 <span></span>
+               </div>
+               <div class="aa-nearby-properties-area">
+                 <div class="row">
+                 </div>
+               </div> -->
+
+             </div>
+
+            </div>           
+          </div>
+        </div>
+        <!-- Start properties sidebar -->
+        <div class="col-md-4">
+          <aside class="aa-properties-sidebar">
+             <!-- Start Single properties sidebar -->
+            <div class="aa-properties-single-sidebar">
+              <h3>Tìm kiếm bất động sản</h3>
+              <form action="/search" method="GET">
+                <div class="aa-single-advance-search">
+                  <input id="search-text" type="text" value="{{query}}" placeholder="Bạn đang tìm kiếm gì?">
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="sort-mode" name="sort">
+                    <option selected value="-1">Sắp xếp</option>
+                    <option value="0">Giá từ cao tới thấp</option>
+                    <option value="1">Giá từ thấp tới cao</option>
+                    <option value="2">Diện tích từ nhỏ tới lớn</option>
+                    <option value="3">Diện tích từ lớn tới nhỏ</option>
+                  </select>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="type-select" name="type">
+                    <option selected value="-1">Tất cả loại hình</option>
+                    <option value="0">nhà mặt tiền</option>
+                    <option value="1">nhà trong hẻm</option>
+                    <option value="2">căn hộ chung cư</option>
+                    <option value="3">đất nền</option>
+                    <option value="4">biệt thự</option>
+                    <option value="5">khách sạn, cửa hàng</option>
+                    <option value="6">phòng trọ, nhà trọ</option>
+                    <option value="7">văn phòng</option>
+                    <option value="8">loại hình khác</option>
+                  </select>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="district-select" name="district">
+                    <option selected value="-1">Quận/huyện</option>
+                  </select>
+                </div>
+                <div class="aa-single-advance-search">
+                  <select id="ward-select" name="ward">
+                    <option value="-1" selected>Phường/xã</option>
+                  </select>
+                </div>
+                <div class="aa-single-filter-search">
+                  <span><h4>Diện tích (m2)</h4></span>
+                  <div>
+                      <input id="min-area" class="aa-range" type="text" placeholder="Min">
+                      <span>&ensp;-&ensp;</span>
+                      <input id="max-area" class="aa-range" type="text" placeholder="Max">
+                  </div>
+                </div>
+                <div class="aa-single-filter-search">
+                  <span><h4>Giá cả (VNĐ)</h4></span>
+                  <div>
+                      <input id="min-price" class="aa-range" type="text" placeholder="Min">
+                      <span>&ensp;-&ensp;</span>
+                      <input id="max-price" class="aa-range" type="text" placeholder="Max">
+                  </div>
+                </div>
+                <div class="aa-single-advance-search">
+                  <button class="aa-search-btn">Tìm kiếm</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Start Single properties sidebar
+            <div class="aa-properties-single-sidebar">
+              <h3>Populer Properties</h3>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="img/item/1.jpg" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">This is Title</a></h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>                
+                  <span>$65000</span>
+                </div>              
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="img/item/1.jpg" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">This is Title</a></h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>                
+                  <span>$65000</span>
+                </div>              
+              </div>
+              <div class="media">
+                <div class="media-left">
+                  <a href="#">
+                    <img class="media-object" src="img/item/1.jpg" alt="img">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#">This is Title</a></h4>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>                
+                  <span>$65000</span>
+                </div>              
+              </div> -->
+            </div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- / Properties  -->
+
+  {% include 'footer.html' %}
+
+  <!-- jQuery library -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+  <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="{{url_for('static', filename='js/bootstrap.js')}}"></script>
+  <!-- slick slider -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/slick.js')}}"></script>
+  <!-- Price picker slider -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/nouislider.js')}}"></script>
+   <!-- mixit slider -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/jquery.mixitup.js')}}"></script>
+  <!-- Add fancyBox -->
+  <script type="text/javascript" src="{{url_for('static', filename='js/jquery.fancybox.pack.js')}}"></script>
+  <!-- Custom js -->
+  <script src="{{url_for('static', filename='js/custom.js')}}"></script>
+  <script src="{{url_for('static', filename='js/format.js')}}"></script>
+  <script src="{{url_for('static', filename='js/itemloader.js')}}"></script>
+  <script src="{{url_for('static', filename='js/filterrender.js')}}"></script>
+
+  <script src="{{url_for('static', filename='js/propertydetailitemrender.js')}}"></script>
+  </body>
+</html>

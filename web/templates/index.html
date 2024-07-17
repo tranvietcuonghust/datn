@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redash Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+    <script>
+        // Function to reload the iframe
+        function reloadIframe() {
+            document.getElementById('redash-iframe').src += '';
+        }
+        // Set interval to reload the iframe every 5 minutes (300000 milliseconds)
+        setInterval(reloadIframe, 300000);
+    </script>
+</head>
+<body>
+    <div class="iframe-container">
+        <iframe id="redash-iframe" src="http://localhost:5000/public/dashboards/BI6kZ7jftBBc4KpBbZES3z1QNQXDKMJdJb2IfnlW?org_slug=default"></iframe>
+    </div>
+</body>
+</html>

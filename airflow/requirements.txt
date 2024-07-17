@@ -1,0 +1,13 @@
+scrapy
+fuzzywuzzy
+joblib
+nltk
+sklearn-crfsuite
+python-Levenshtein
+pymilvus
+milvus_model
+pyvi
+scikit-learn
+google-cloud-bigquery 
+google-auth
+minio
